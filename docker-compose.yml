@@ -1,0 +1,11 @@
+name: greenhouse-guard
+
+services:
+  api:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      ConnectionStrings__Greenhouse: "Data Source=/data/greenhouse.db"
+    volumes:
+      - ./data:/data
