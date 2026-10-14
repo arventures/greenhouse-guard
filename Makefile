@@ -1,4 +1,4 @@
-.PHONY: up down logs seed reading spec
+.PHONY: up down logs seed reading spec test
 
 API ?= http://localhost:8080
 T ?= 22.5
@@ -25,3 +25,7 @@ reading:
 spec:
 	@curl -sSf $(API)/openapi/v1.json -o docs/openapi.json
 	@echo "Saved docs/openapi.json"
+
+test:
+	docker run --rm -v "$(CURDIR)/backend:/src:ro" mcr.microsoft.com/dotnet/sdk:10.0 \
+		sh -c "cp -r /src /work && cd /work && dotnet test"

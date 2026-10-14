@@ -14,6 +14,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<GreenhouseDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Greenhouse")));
 builder.Services.AddScoped<ReadingService>();
+builder.Services.AddSingleton<AnomalyDetector>();
+builder.Services.AddSingleton<AnomalyStore>();
 
 var app = builder.Build();
 
@@ -26,6 +28,7 @@ using (var scope = app.Services.CreateScope())
 app.UseExceptionHandler();
 app.UseStatusCodePages();
 app.MapReadingEndpoints();
+app.MapAnomalyEndpoints();
 app.MapOpenApi();
 
 app.Run();
