@@ -26,7 +26,7 @@ Without Docker, run `dotnet run` in `backend/Greenhouse.Api` with the .NET 10 SD
 | `POST /api/readings` | Saves one reading, or an array of readings in one transaction, and returns 201 with what was saved |
 | `GET /api/anomalies` | Returns the last 20 anomalies, oldest first |
 
-Errors are ProblemDetails JSON, and `GET /openapi/v1.json` describes every endpoint. An anomaly is a value more than 2.5 standard deviations from the mean of its sensor's last 20 values. Anomalies stay in memory, as the requirements ask.
+Errors are ProblemDetails JSON, and `GET /openapi/v1.json` describes every endpoint. An anomaly is a value more than 2.5 standard deviations from the mean of its sensor's last 20 values. Anomalies stay in memory, as the requirements ask. The SignalR hub at `/hubs/sensors` sends `ReceiveReading` and `ReceiveAnomaly` to every client, and clients can call its `Heartbeat` method.
 
 ## Database
 
