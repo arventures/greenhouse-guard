@@ -1,0 +1,23 @@
+[
+  {"temperature": 22.1, "humidity": 61.2, "co2Ppm": 640},
+  {"temperature": 22.4, "humidity": 61.8, "co2Ppm": 652},
+  {"temperature": 22.3, "humidity": 61.5, "co2Ppm": 646},
+  {"temperature": 22.6, "humidity": 62.0, "co2Ppm": 658},
+  {"temperature": 22.5, "humidity": 61.4, "co2Ppm": 643},
+  {"temperature": 22.8, "humidity": 61.1, "co2Ppm": 655},
+  {"temperature": 22.7, "humidity": 61.7, "co2Ppm": 649},
+  {"temperature": 22.9, "humidity": 62.1, "co2Ppm": 661},
+  {"temperature": 23.0, "humidity": 61.3, "co2Ppm": 644},
+  {"temperature": 22.8, "humidity": 61.9, "co2Ppm": 650},
+  {"temperature": 22.6, "humidity": 61.0, "co2Ppm": 657},
+  {"temperature": 22.7, "humidity": 61.6, "co2Ppm": 641},
+  {"temperature": 22.5, "humidity": 62.2, "co2Ppm": 653},
+  {"temperature": 22.4, "humidity": 61.4, "co2Ppm": 647},
+  {"temperature": 22.6, "humidity": 61.8, "co2Ppm": 659},
+  {"temperature": 22.3, "humidity": 61.1, "co2Ppm": 645},
+  {"temperature": 22.5, "humidity": 62.0, "co2Ppm": 651},
+  {"temperature": 22.2, "humidity": 61.5, "co2Ppm": 656},
+  {"temperature": 22.4, "humidity": 61.3, "co2Ppm": 642},
+  {"temperature": 22.3, "humidity": 61.7, "co2Ppm": 648},
+  {"temperature": 35.0, "humidity": 61.5, "co2Ppm": 649}
+]
