@@ -9,15 +9,27 @@ Requirements: Docker and make.
 | Command | What it does |
 |---|---|
 | `make up` | Builds and starts the API on http://localhost:8080 |
+| `make seed` | Posts 21 readings in one request. The last one is a temperature spike |
+| `make reading` | Posts one reading. Change its values with `T`, `H` and `CO2`, for example `make reading T=40` |
+| `make spec` | Saves the running API's OpenAPI document to `docs/openapi.json` |
 | `make logs` | Follows the logs |
 | `make down` | Stops everything |
 
 Without Docker, run `dotnet run` in `backend/Greenhouse.Api` with the .NET 10 SDK.
+
+## API
+
+| Endpoint | What it does |
+|---|---|
+| `GET /api/readings/latest` | Returns the newest reading, or 404 before the first one |
+| `POST /api/readings` | Saves one reading, or an array of readings in one transaction, and returns 201 with what was saved |
+
+Errors are ProblemDetails JSON, and `GET /openapi/v1.json` describes every endpoint.
 
 ## Database
 
 SQLite, through EF Core. When the API starts, its migrations create `data/greenhouse.db`. To look inside:
 
 ```bash
-sqlite3 -readonly data/greenhouse.db ".schema SensorReadings"
+sqlite3 -readonly data/greenhouse.db "SELECT * FROM SensorReadings ORDER BY SequenceNumber DESC LIMIT 5"
 ```
