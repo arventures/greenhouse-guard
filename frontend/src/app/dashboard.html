@@ -1,0 +1,13 @@
+<header>
+  <h1>Greenhouse Monitor</h1>
+  <span class="badge">OFFLINE</span>
+  <span class="updated">Last update: –</span>
+</header>
+
+<main>
+  <section class="cards">
+    @for (sensor of sensors; track sensor.key) {
+      <app-sensor-card [sensor]="sensor" />
+    }
+  </section>
+</main>

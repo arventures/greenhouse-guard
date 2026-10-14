@@ -18,6 +18,11 @@ builder.Services.AddDbContext<GreenhouseDbContext>(options =>
 builder.Services.AddScoped<ReadingService>();
 builder.Services.AddSingleton<AnomalyDetector>();
 builder.Services.AddSingleton<AnomalyStore>();
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy
+    .WithOrigins(builder.Configuration["Cors:Origin"]!)
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()));
 
 var app = builder.Build();
 
@@ -29,6 +34,7 @@ using (var scope = app.Services.CreateScope())
 
 app.UseExceptionHandler();
 app.UseStatusCodePages();
+app.UseCors();
 app.MapReadingEndpoints();
 app.MapAnomalyEndpoints();
 app.MapOpenApi();

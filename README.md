@@ -8,7 +8,7 @@ Requirements: Docker and make.
 
 | Command | What it does |
 |---|---|
-| `make up` | Builds and starts the API on http://localhost:8080 |
+| `make up` | Builds and starts the API on http://localhost:8080 and the dashboard on http://localhost:4200 |
 | `make seed` | Posts 21 readings in one request. The last one is a temperature spike |
 | `make reading` | Posts one reading. Change its values with `T`, `H` and `CO2`, for example `make reading T=40` |
 | `make spec` | Saves the running API's OpenAPI document to `docs/openapi.json` |
@@ -16,7 +16,7 @@ Requirements: Docker and make.
 | `make logs` | Follows the logs |
 | `make down` | Stops everything |
 
-Without Docker, run `dotnet run` in `backend/Greenhouse.Api` with the .NET 10 SDK.
+Without Docker, run `dotnet run` in `backend/Greenhouse.Api` with the .NET 10 SDK, and `npm install`, then `npx ng serve`, in `frontend` with Node.js 24 LTS.
 
 ## API
 
@@ -27,6 +27,10 @@ Without Docker, run `dotnet run` in `backend/Greenhouse.Api` with the .NET 10 SD
 | `GET /api/anomalies` | Returns the last 20 anomalies, oldest first |
 
 Errors are ProblemDetails JSON, and `GET /openapi/v1.json` describes every endpoint. An anomaly is a value more than 2.5 standard deviations from the mean of its sensor's last 20 values. Anomalies stay in memory, as the requirements ask. The SignalR hub at `/hubs/sensors` sends `ReceiveReading` and `ReceiveAnomaly` to every client, and clients can call its `Heartbeat` method.
+
+## Dashboard
+
+http://localhost:4200 shows the header and three empty cards. Hover over the i next to a card's name, or tap it on a phone, to see what the sensor measures.
 
 ## Database
 

@@ -9,3 +9,10 @@ services:
       ConnectionStrings__Greenhouse: "Data Source=/data/greenhouse.db"
     volumes:
       - ./data:/data
+
+  web:
+    build: ./frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - api
