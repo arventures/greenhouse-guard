@@ -11,8 +11,10 @@ Requirements: Docker and make.
 | `make up` | Builds and starts the API on http://localhost:8080 and the dashboard on http://localhost:4200 |
 | `make seed` | Posts 21 readings in one request. The last one is a temperature spike |
 | `make reading` | Posts one reading. Change its values with `T`, `H` and `CO2`, for example `make reading T=40` |
+| `make stop-api` | Stops only the API, so you can see the dashboard go offline |
+| `make start-api` | Starts the API again |
 | `make spec` | Saves the running API's OpenAPI document to `docs/openapi.json` |
-| `make test` | Runs the backend tests |
+| `make test` | Runs the backend and frontend tests |
 | `make logs` | Follows the logs |
 | `make down` | Stops everything |
 
@@ -30,7 +32,12 @@ Errors are ProblemDetails JSON, and `GET /openapi/v1.json` describes every endpo
 
 ## Dashboard
 
-http://localhost:4200 shows the header and three empty cards. Hover over the i next to a card's name, or tap it on a phone, to see what the sensor measures.
+http://localhost:4200 shows:
+- LIVE or OFFLINE, and "Ping": the round trip of a heartbeat the page sends every 15 seconds.
+- How long ago the last reading arrived. Hover over it for the exact time.
+- Three cards coloured green, yellow or red, whose values animate when they change.
+
+Hover over a label, or tap it on a phone, to see what it means.
 
 ## Database
 

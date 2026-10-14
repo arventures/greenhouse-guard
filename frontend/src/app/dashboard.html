@@ -1,13 +1,29 @@
+@let reading = data.currentReading();
+@let latency = signalR.latencyMs();
+
 <header>
   <h1>Greenhouse Monitor</h1>
-  <span class="badge">OFFLINE</span>
-  <span class="updated">Last update: –</span>
+  <app-info-tip [text]="data.isLive() ? tips.live : tips.offline">
+    <span class="badge" [class.live]="data.isLive()">{{ data.isLive() ? 'LIVE' : 'OFFLINE' }}</span>
+  </app-info-tip>
+  @if (latency !== null) {
+    <app-info-tip [text]="tips.ping">
+      <span class="latency">Ping {{ latency }} ms</span>
+    </app-info-tip>
+  }
+  <app-info-tip [text]="reading ? 'Saved at ' + (reading.timestamp | date: 'medium') + ', your time.' : tips.noReading">
+    <span class="updated">Last update: {{ lastUpdate() }}</span>
+  </app-info-tip>
 </header>
 
 <main>
+  @if (data.error(); as error) {
+    <p class="error">{{ error }}</p>
+  }
+
   <section class="cards">
     @for (sensor of sensors; track sensor.key) {
-      <app-sensor-card [sensor]="sensor" />
+      <app-sensor-card [sensor]="sensor" [value]="reading?.[sensor.key]" />
     }
   </section>
 </main>

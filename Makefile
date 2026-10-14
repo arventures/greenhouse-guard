@@ -1,4 +1,4 @@
-.PHONY: up down logs seed reading spec test
+.PHONY: up down logs stop-api start-api seed reading spec test
 
 API ?= http://localhost:8080
 T ?= 22.5
@@ -13,6 +13,12 @@ down:
 
 logs:
 	docker compose logs -f
+
+stop-api:
+	docker compose stop api
+
+start-api:
+	docker compose start api
 
 seed:
 	@curl -s -o /dev/null -w "POST /api/readings -> %{http_code}\n" \
@@ -29,3 +35,4 @@ spec:
 test:
 	docker run --rm -v "$(CURDIR)/backend:/src:ro" mcr.microsoft.com/dotnet/sdk:10.0 \
 		sh -c "cp -r /src /work && cd /work && dotnet test"
+	docker compose run --rm --no-deps --build web npx ng test --watch=false
