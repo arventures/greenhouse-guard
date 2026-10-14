@@ -12,6 +12,7 @@ Requirements: Docker and make.
 | `make seed` | Posts 21 readings in one request. The last one is a temperature spike |
 | `make reading` | Posts one reading. Change its values with `T`, `H` and `CO2`, for example `make reading T=40` |
 | `make spec` | Saves the running API's OpenAPI document to `docs/openapi.json` |
+| `make test` | Runs the backend tests |
 | `make logs` | Follows the logs |
 | `make down` | Stops everything |
 
@@ -23,8 +24,9 @@ Without Docker, run `dotnet run` in `backend/Greenhouse.Api` with the .NET 10 SD
 |---|---|
 | `GET /api/readings/latest` | Returns the newest reading, or 404 before the first one |
 | `POST /api/readings` | Saves one reading, or an array of readings in one transaction, and returns 201 with what was saved |
+| `GET /api/anomalies` | Returns the last 20 anomalies, oldest first |
 
-Errors are ProblemDetails JSON, and `GET /openapi/v1.json` describes every endpoint.
+Errors are ProblemDetails JSON, and `GET /openapi/v1.json` describes every endpoint. An anomaly is a value more than 2.5 standard deviations from the mean of its sensor's last 20 values. Anomalies stay in memory, as the requirements ask.
 
 ## Database
 

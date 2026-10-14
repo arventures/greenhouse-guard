@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Greenhouse.Api.Services;
 
-public class ReadingService(GreenhouseDbContext db)
+public class ReadingService(GreenhouseDbContext db, AnomalyDetector detector, AnomalyStore anomalies)
 {
     public Task<SensorReading?> GetLatestAsync() =>
         db.SensorReadings.OrderByDescending(r => r.SequenceNumber).FirstOrDefaultAsync();
@@ -16,6 +16,14 @@ public class ReadingService(GreenhouseDbContext db)
 
         db.SensorReadings.AddRange(readings);
         await db.SaveChangesAsync();
+
+        foreach (var reading in readings)
+        {
+            foreach (var anomaly in detector.Check(reading))
+            {
+                anomalies.Add(anomaly);
+            }
+        }
 
         return readings;
     }

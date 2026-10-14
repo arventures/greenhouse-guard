@@ -97,10 +97,59 @@
           }
         }
       }
+    },
+    "/api/anomalies": {
+      "get": {
+        "tags": [
+          "Anomalies"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Anomaly"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "Anomaly": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "detectedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sensorType": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number",
+            "format": "double"
+          },
+          "zScore": {
+            "type": "number",
+            "format": "double"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      },
       "NewReading": {
         "required": [
           "temperature",
@@ -193,6 +242,9 @@
   "tags": [
     {
       "name": "Readings"
+    },
+    {
+      "name": "Anomalies"
     }
   ]
 }
