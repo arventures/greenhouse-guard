@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Greenhouse.Api.Data;
 using Greenhouse.Api.Endpoints;
+using Greenhouse.Api.Hubs;
 using Greenhouse.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 builder.Services.AddProblemDetails();
 builder.Services.Configure<RouteHandlerOptions>(options => options.ThrowOnBadRequest = false);
 builder.Services.AddOpenApi();
+builder.Services.AddSignalR();
 builder.Services.AddDbContext<GreenhouseDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Greenhouse")));
 builder.Services.AddScoped<ReadingService>();
@@ -30,5 +32,6 @@ app.UseStatusCodePages();
 app.MapReadingEndpoints();
 app.MapAnomalyEndpoints();
 app.MapOpenApi();
+app.MapHub<SensorHub>("/hubs/sensors");
 
 app.Run();
