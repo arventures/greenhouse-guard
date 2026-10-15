@@ -7,4 +7,13 @@ export interface SensorReading {
   co2Ppm: number;
 }
 
+export interface Anomaly {
+  id: string;
+  detectedAt: string;
+  sensorType: string;
+  value: number;
+  zScore: number;
+  reason: string;
+}
+
 export type ConnectionStatus = 'connected' | 'reconnecting' | 'disconnected';

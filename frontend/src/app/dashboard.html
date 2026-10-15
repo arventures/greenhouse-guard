@@ -26,4 +26,24 @@
       <app-sensor-card [sensor]="sensor" [value]="reading?.[sensor.key]" />
     }
   </section>
+
+  <section class="anomalies">
+    <h2>Anomalies <app-info-tip [text]="tips.anomalies" /></h2>
+    @if (data.anomalies().length === 0) {
+      <p class="empty">None yet.</p>
+    } @else {
+      <ul #anomalyList>
+        @for (anomaly of data.anomalies(); track anomaly.id) {
+          <li>
+            <time>{{ anomaly.detectedAt | date: 'mediumTime' }}</time>
+            <strong>{{ anomaly.sensorType }}</strong>
+            <span>{{ anomaly.value }}</span>
+            <span class="reason">{{ anomaly.reason }}</span>
+          </li>
+        }
+      </ul>
+    }
+  </section>
 </main>
+
+<app-anomaly-toast />
