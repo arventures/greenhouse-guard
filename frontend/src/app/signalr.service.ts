@@ -2,7 +2,7 @@ import { Injectable, effect, signal } from '@angular/core';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import { Subject } from 'rxjs';
 import { API_URL } from './api';
-import { ConnectionStatus, SensorReading } from './models';
+import { Anomaly, ConnectionStatus, SensorReading } from './models';
 
 const HEARTBEAT_MS = 15000;
 
@@ -12,6 +12,7 @@ export class SignalRService {
   private readonly latency = signal<number | null>(null);
 
   readonly sensorReading$ = new Subject<SensorReading>();
+  readonly anomaly$ = new Subject<Anomaly>();
   readonly connectionStatus = this.status.asReadonly();
   readonly latencyMs = this.latency.asReadonly();
 
@@ -22,6 +23,7 @@ export class SignalRService {
 
   constructor() {
     this.connection.on('ReceiveReading', (reading: SensorReading) => this.sensorReading$.next(reading));
+    this.connection.on('ReceiveAnomaly', (anomaly: Anomaly) => this.anomaly$.next(anomaly));
     this.connection.onreconnecting(() => this.status.set('reconnecting'));
     this.connection.onreconnected(() => this.status.set('connected'));
     this.connection.onclose(() => this.status.set('disconnected'));

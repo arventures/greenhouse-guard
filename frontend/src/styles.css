@@ -158,3 +158,87 @@ header .info-text {
   left: 12px;
   max-width: calc(100% - 24px);
 }
+
+.anomalies h2 {
+  position: relative;
+  margin: 24px 0 8px;
+  font-size: 1.1rem;
+}
+
+.empty {
+  color: #5f6b5f;
+}
+
+.anomalies ul {
+  max-height: 260px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.anomalies li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #eef1ee;
+}
+
+.anomalies .reason {
+  flex-basis: 100%;
+  color: #5f6b5f;
+}
+
+.toasts {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 20;
+  display: grid;
+  gap: 8px;
+  width: min(380px, calc(100vw - 32px));
+}
+
+.toast {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  padding: 12px 14px;
+  border-left: 6px solid #c62828;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 15%);
+  animation: toast-in 0.3s ease-out;
+}
+
+.toast button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #5f6b5f;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.toast .reason {
+  grid-column: 1 / -1;
+  color: #5f6b5f;
+  font-size: 0.9rem;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}

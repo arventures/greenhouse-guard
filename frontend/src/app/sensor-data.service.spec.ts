@@ -3,7 +3,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Subject } from 'rxjs';
-import { ConnectionStatus, SensorReading } from './models';
+import { Anomaly, ConnectionStatus, SensorReading } from './models';
 import { SensorDataService } from './sensor-data.service';
 import { SignalRService } from './signalr.service';
 
@@ -11,6 +11,7 @@ describe('SensorDataService', () => {
   it('should update sensor reading on SignalR message', () => {
     const signalR = {
       sensorReading$: new Subject<SensorReading>(),
+      anomaly$: new Subject<Anomaly>(),
       connectionStatus: signal<ConnectionStatus>('disconnected'),
     };
     TestBed.configureTestingModule({

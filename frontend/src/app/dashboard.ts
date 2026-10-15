@@ -1,5 +1,15 @@
 import { DatePipe } from '@angular/common';
-import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  afterRenderEffect,
+  computed,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
+import { AnomalyToast } from './anomaly-toast';
 import { InfoTip } from './info-tip';
 import { SensorCard } from './sensor-card';
 import { SensorDataService } from './sensor-data.service';
@@ -14,11 +24,12 @@ const TIPS = {
   offline: 'Not connected to the server. The page tries again every 2 seconds.',
   ping: 'How long the last heartbeat took to reach the server and come back. The page sends one every 15 seconds while it is LIVE.',
   noReading: 'No readings yet.',
+  anomalies: "A value more than 2.5 standard deviations away from the average of that sensor's previous 20 values. The server starts checking once a sensor has 20 values.",
 };
 
 @Component({
   selector: 'app-dashboard',
-  imports: [DatePipe, InfoTip, SensorCard],
+  imports: [AnomalyToast, DatePipe, InfoTip, SensorCard],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {
@@ -28,6 +39,7 @@ export class Dashboard {
   protected readonly tips = TIPS;
 
   private readonly now = signal(Date.now());
+  private readonly anomalyList = viewChild<ElementRef<HTMLUListElement>>('anomalyList');
 
   protected readonly lastUpdate = computed(() => {
     const reading = this.data.currentReading();
@@ -37,5 +49,13 @@ export class Dashboard {
   constructor() {
     const clock = setInterval(() => this.now.set(Date.now()), CLOCK_MS);
     inject(DestroyRef).onDestroy(() => clearInterval(clock));
+
+    afterRenderEffect(() => {
+      const newest = this.data.anomalies().at(-1);
+      const list = this.anomalyList()?.nativeElement;
+      if (newest && list) {
+        list.scrollTop = list.scrollHeight;
+      }
+    });
   }
 }

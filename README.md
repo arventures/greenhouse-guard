@@ -36,6 +36,7 @@ http://localhost:4200 shows:
 - LIVE or OFFLINE, and "Ping": the round trip of a heartbeat the page sends every 15 seconds.
 - How long ago the last reading arrived. Hover over it for the exact time.
 - Three cards coloured green, yellow or red, whose values animate when they change.
+- The last 10 anomalies, and a pop-up for each new one.
 
 Hover over a label, or tap it on a phone, to see what it means.
 

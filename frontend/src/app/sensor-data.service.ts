@@ -1,8 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import { API_URL } from './api';
-import { SensorReading } from './models';
+import { Anomaly, SensorReading } from './models';
 import { SignalRService } from './signalr.service';
+
+const MAX_ANOMALIES = 10;
 
 @Injectable({ providedIn: 'root' })
 export class SensorDataService {
@@ -10,14 +12,19 @@ export class SensorDataService {
   private readonly signalR = inject(SignalRService);
 
   private readonly reading = signal<SensorReading | null>(null);
+  private readonly anomalyList = signal<Anomaly[]>([]);
   private readonly loadError = signal<string | null>(null);
 
   readonly currentReading = this.reading.asReadonly();
+  readonly anomalies = this.anomalyList.asReadonly();
   readonly error = this.loadError.asReadonly();
   readonly isLive = computed(() => this.signalR.connectionStatus() === 'connected');
 
   constructor() {
     this.signalR.sensorReading$.subscribe((reading) => this.reading.set(reading));
+    this.signalR.anomaly$.subscribe((anomaly) =>
+      this.anomalyList.update((list) => [...list, anomaly].slice(-MAX_ANOMALIES)),
+    );
 
     effect(() => {
       if (this.isLive()) {
@@ -36,6 +43,11 @@ export class SensorDataService {
           this.loadError.set('Could not load the latest reading.');
         }
       },
+    });
+
+    this.http.get<Anomaly[]>(`${API_URL}/api/anomalies`).subscribe({
+      next: (anomalies) => this.anomalyList.set(anomalies.slice(-MAX_ANOMALIES)),
+      error: () => this.loadError.set('Could not load the anomalies.'),
     });
   }
 }
