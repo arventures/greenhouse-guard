@@ -159,10 +159,24 @@ header .info-text {
   max-width: calc(100% - 24px);
 }
 
+.history h2,
 .anomalies h2 {
   position: relative;
   margin: 24px 0 8px;
   font-size: 1.1rem;
+}
+
+.chart {
+  position: relative;
+  height: 240px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+app-reading-chart {
+  display: block;
+  height: 100%;
 }
 
 .empty {
