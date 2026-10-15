@@ -38,6 +38,11 @@ header h1 {
   background: #2e7d32;
 }
 
+.badge.pending {
+  background: #f9a825;
+  color: #1f2a1f;
+}
+
 .latency,
 .updated {
   color: #5f6b5f;
@@ -160,7 +165,8 @@ header .info-text {
 }
 
 .history h2,
-.anomalies h2 {
+.anomalies h2,
+.sent h2 {
   position: relative;
   margin: 24px 0 8px;
   font-size: 1.1rem;
@@ -183,7 +189,8 @@ app-reading-chart {
   color: #5f6b5f;
 }
 
-.anomalies ul {
+.anomalies ul,
+.sent ul {
   max-height: 260px;
   overflow-y: auto;
   margin: 0;
@@ -193,7 +200,8 @@ app-reading-chart {
   border-radius: 8px;
 }
 
-.anomalies li {
+.anomalies li,
+.sent li {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 12px;
@@ -255,4 +263,81 @@ app-reading-chart {
   .toast {
     animation: none;
   }
+}
+
+.intro {
+  max-width: 720px;
+  margin: 0 0 16px;
+  color: #5f6b5f;
+  line-height: 1.5;
+}
+
+.machine-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.machine-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: #5f6b5f;
+}
+
+.machine-form input,
+.machine-form select {
+  width: 120px;
+  padding: 6px 8px;
+  font: inherit;
+  border: 1px solid #cfd8cf;
+  border-radius: 6px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+button {
+  padding: 8px 16px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: #2e7d32;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button.secondary {
+  color: #2e7d32;
+  background: #fff;
+  border: 1px solid #2e7d32;
+}
+
+button:disabled {
+  color: #fff;
+  background: #9e9e9e;
+  border-color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+.sent strong {
+  margin-left: auto;
+}
+
+.sent .queued {
+  color: #8a6d00;
+}
+
+.sent .rejected {
+  color: #8e1c1c;
 }
