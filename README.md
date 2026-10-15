@@ -42,6 +42,10 @@ http://localhost:4200 shows:
 
 Hover over a label, or tap it on a phone, to see what it means.
 
+## Mock machine
+
+http://localhost:4200/admin/mock-machine-reading plays a greenhouse sensor: **Start** sends a reading every few seconds, and **Send a spike** sends one that's 12 °C too hot. If the API can't be reached (try `make stop-api`), readings wait in the browser's localStorage, and go out in one request, in order, when it's back.
+
 ## Database
 
 SQLite, through EF Core. When the API starts, its migrations create `data/greenhouse.db`. To look inside:

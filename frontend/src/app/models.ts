@@ -7,6 +7,12 @@ export interface SensorReading {
   co2Ppm: number;
 }
 
+export interface NewReading {
+  temperature: number;
+  humidity: number;
+  co2Ppm: number;
+}
+
 export interface Anomaly {
   id: string;
   detectedAt: string;

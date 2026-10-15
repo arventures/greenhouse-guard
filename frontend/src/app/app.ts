@@ -1,11 +1,11 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { Dashboard } from './dashboard';
+import { RouterOutlet } from '@angular/router';
 import { SignalRService } from './signalr.service';
 
 @Component({
   selector: 'app-root',
-  imports: [Dashboard],
-  template: '<app-dashboard />',
+  imports: [RouterOutlet],
+  template: '<router-outlet />',
 })
 export class App {
   constructor() {
