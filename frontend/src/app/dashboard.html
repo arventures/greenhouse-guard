@@ -27,6 +27,17 @@
     }
   </section>
 
+  <section class="history">
+    <h2>Temperature, last 20 readings <app-info-tip [text]="tips.chart" /></h2>
+    <div class="chart">
+      @defer {
+        <app-reading-chart [readings]="data.recentReadings()" />
+      } @placeholder {
+        <p class="empty">Loading the chart…</p>
+      }
+    </div>
+  </section>
+
   <section class="anomalies">
     <h2>Anomalies <app-info-tip [text]="tips.anomalies" /></h2>
     @if (data.anomalies().length === 0) {

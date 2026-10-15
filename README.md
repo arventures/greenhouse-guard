@@ -25,6 +25,7 @@ Without Docker, run `dotnet run` in `backend/Greenhouse.Api` with the .NET 10 SD
 | Endpoint | What it does |
 |---|---|
 | `GET /api/readings/latest` | Returns the newest reading, or 404 before the first one |
+| `GET /api/readings/recent` | Returns the last 20 readings, oldest first |
 | `POST /api/readings` | Saves one reading, or an array of readings in one transaction, and returns 201 with what was saved |
 | `GET /api/anomalies` | Returns the last 20 anomalies, oldest first |
 
@@ -36,6 +37,7 @@ http://localhost:4200 shows:
 - LIVE or OFFLINE, and "Ping": the round trip of a heartbeat the page sends every 15 seconds.
 - How long ago the last reading arrived. Hover over it for the exact time.
 - Three cards coloured green, yellow or red, whose values animate when they change.
+- A chart of the last 20 temperatures.
 - The last 10 anomalies, and a pop-up for each new one.
 
 Hover over a label, or tap it on a phone, to see what it means.

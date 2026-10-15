@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { AnomalyToast } from './anomaly-toast';
 import { InfoTip } from './info-tip';
+import { ReadingChart } from './reading-chart';
 import { SensorCard } from './sensor-card';
 import { SensorDataService } from './sensor-data.service';
 import { SENSORS } from './sensors';
@@ -25,11 +26,12 @@ const TIPS = {
   ping: 'How long the last heartbeat took to reach the server and come back. The page sends one every 15 seconds while it is LIVE.',
   noReading: 'No readings yet.',
   anomalies: "A value more than 2.5 standard deviations away from the average of that sensor's previous 20 values. The server starts checking once a sensor has 20 values.",
+  chart: 'The temperature of the last 20 readings, oldest on the left. Labels are reading numbers.',
 };
 
 @Component({
   selector: 'app-dashboard',
-  imports: [AnomalyToast, DatePipe, InfoTip, SensorCard],
+  imports: [AnomalyToast, DatePipe, InfoTip, ReadingChart, SensorCard],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {

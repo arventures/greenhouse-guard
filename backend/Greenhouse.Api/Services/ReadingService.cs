@@ -12,8 +12,17 @@ public class ReadingService(
     AnomalyStore anomalies,
     IHubContext<SensorHub, ISensorClient> hub)
 {
+    private const int RecentCount = 20;
+
     public Task<SensorReading?> GetLatestAsync() =>
         db.SensorReadings.OrderByDescending(r => r.SequenceNumber).FirstOrDefaultAsync();
+
+    public Task<List<SensorReading>> GetRecentAsync() =>
+        db.SensorReadings
+            .OrderByDescending(r => r.SequenceNumber)
+            .Take(RecentCount)
+            .OrderBy(r => r.SequenceNumber)
+            .ToListAsync();
 
     public async Task<List<SensorReading>> AddAsync(List<NewReading> newReadings)
     {

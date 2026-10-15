@@ -39,6 +39,28 @@
         }
       }
     },
+    "/api/readings/recent": {
+      "get": {
+        "tags": [
+          "Readings"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SensorReading"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/readings": {
       "post": {
         "tags": [

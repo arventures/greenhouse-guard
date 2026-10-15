@@ -17,6 +17,7 @@ public static class ReadingEndpoints
         var readings = app.MapGroup("/api/readings").WithTags("Readings");
 
         readings.MapGet("/latest", GetLatest).ProducesProblem(StatusCodes.Status404NotFound);
+        readings.MapGet("/recent", GetRecent);
         readings.MapPost("", Create)
             .Produces(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status400BadRequest)
@@ -28,6 +29,8 @@ public static class ReadingEndpoints
         var latest = await service.GetLatestAsync();
         return latest is null ? TypedResults.NotFound() : TypedResults.Ok(latest);
     }
+
+    private static Task<List<SensorReading>> GetRecent(ReadingService service) => service.GetRecentAsync();
 
     private static async Task<IResult> Create(JsonElement body, ReadingService service)
     {
